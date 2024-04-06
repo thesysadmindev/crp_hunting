@@ -81,55 +81,17 @@ AddEventHandler('crp_hunting:CarryCarcass',function ()
         carryCarcass = 0
         ClearPedSecondaryTask(PlayerPedId())
 
-        --[[
-        lib.requestModel(heaviestCarcass)
-        carryCarcass = CreatePed(1, heaviestCarcass, GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
-        SetEntityInvincible(carryCarcass, true)
-        SetEntityHealth(carryCarcass, 0)
-        local pos = Config.carcassPos[heaviestCarcass]
-        AttachEntityToEntity(carryCarcass, PlayerPedId(),11816, pos.xPos, pos.yPos, pos.zPos, pos.xRot, pos.yRot, pos.zRot, false, false, false, true, 2, true)
-        PlayCarryAnim()
-        ]]
     else
         DeleteEntity(carryCarcass)
         carryCarcass = 0
         ClearPedSecondaryTask(PlayerPedId())
     end
 end)
+
 RegisterCommand('carcass', function ()
     lib.requestAnimDict('amb@medic@standing@kneel@idle_a')
     TaskPlayAnim(PlayerPedId(), 'amb@medic@standing@kneel@idle_a', 'idle_a', 8.0, -8.0, 10000, 1, 0, false, false, false)
 end)
-
-
-function PlayCarryAnim()
-    if carryCarcass ~= 0 then
-        if Config.carcassPos[heaviestCarcass].drag then
-            lib.requestAnimDict('combat@drag_ped@')
-            TaskPlayAnim(PlayerPedId(), 'combat@drag_ped@', 'injured_drag_plyr', 2.0, 2.0, 100000, 1, 0, false, false, false)
-            CustomControl()
-            while carryCarcass ~= 0 do
-                while not IsEntityPlayingAnim(PlayerPedId(), 'combat@drag_ped@', 'injured_drag_plyr', 1) do
-                    TaskPlayAnim(PlayerPedId(), 'combat@drag_ped@', 'injured_drag_plyr', 2.0, 2.0, 100000, 1, 0, false, false, false)
-                    Wait(0)
-                end
-                Wait(500)
-            end
-        else
-            lib.requestAnimDict('missfinale_c2mcs_1')
-            TaskPlayAnim(PlayerPedId(), 'missfinale_c2mcs_1', 'fin_c2_mcs_1_camman', 8.0, -8.0, 100000, 49, 0, false, false, false)
-            while carryCarcass ~= 0 do
-                while not IsEntityPlayingAnim(PlayerPedId(), 'missfinale_c2mcs_1', 'fin_c2_mcs_1_camman', 49) do
-                    TaskPlayAnim(PlayerPedId(), 'missfinale_c2mcs_1', 'fin_c2_mcs_1_camman', 8.0, -8.0, 100000, 49, 0, false, false, false)
-                    Wait(0)
-                end
-                Wait(500)
-            end
-        end
-    else
-        ClearPedSecondaryTask(PlayerPedId())
-    end
-end
 
 function CustomControl()
     Citizen.CreateThread(function ()
