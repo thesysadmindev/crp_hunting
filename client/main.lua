@@ -77,18 +77,23 @@ AddEventHandler('crp_hunting:CarryCarcass',function ()
             end
         end
 
-        lib.requestModel(heaviestCarcass)
         DeleteEntity(carryCarcass)
+        carryCarcass = 0
+        ClearPedSecondaryTask(PlayerPedId())
+
+        --[[
+        lib.requestModel(heaviestCarcass)
         carryCarcass = CreatePed(1, heaviestCarcass, GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
         SetEntityInvincible(carryCarcass, true)
         SetEntityHealth(carryCarcass, 0)
         local pos = Config.carcassPos[heaviestCarcass]
         AttachEntityToEntity(carryCarcass, PlayerPedId(),11816, pos.xPos, pos.yPos, pos.zPos, pos.xRot, pos.yRot, pos.zRot, false, false, false, true, 2, true)
         PlayCarryAnim()
+        ]]
     else
         DeleteEntity(carryCarcass)
         carryCarcass = 0
-        PlayCarryAnim()
+        ClearPedSecondaryTask(PlayerPedId())
     end
 end)
 RegisterCommand('carcass', function ()
