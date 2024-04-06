@@ -12,11 +12,11 @@ for key, value in pairs(Config.carcass) do
 end
 RegisterNetEvent('ox:playerLoaded')
 AddEventHandler('ox:playerLoaded',function ()
-    TriggerEvent('nfire_hunting:CarryCarcass')
+    TriggerEvent('crp_hunting:CarryCarcass')
 end)
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded',function ()
-    TriggerEvent('nfire_hunting:CarryCarcass')
+    TriggerEvent('crp_hunting:CarryCarcass')
 end)
 
 exports.qtarget:AddTargetModel(animals, {
@@ -45,7 +45,7 @@ exports.qtarget:AddTargetModel(animals, {
                     },
                 }, function(cancel)
                     if not cancel then
-                        TriggerServerEvent('nfire_hunting:harvestCarcass',NetworkGetNetworkIdFromEntity(entity),bone)
+                        TriggerServerEvent('crp_hunting:harvestCarcass',NetworkGetNetworkIdFromEntity(entity),bone)
                     end
                 end)
             end,
@@ -59,7 +59,7 @@ exports.qtarget:AddTargetModel(animals, {
     distance = 2
 })
 
-AddEventHandler('nfire_hunting:CarryCarcass',function ()
+AddEventHandler('crp_hunting:CarryCarcass',function ()
     TriggerEvent('ox_inventory:disarm')
     FreezeEntityPosition(playerPed, false)
     heaviestCarcass = 0
@@ -160,8 +160,8 @@ end
 
 --------------------- SELL -----------------------------------
 
-exports.qtarget:AddBoxZone("nfire_hunting_sell",vector3(963.34, -2115.39, 31.47), 6.8, 1, {
-    name="nfire_hunting_sell",
+exports.qtarget:AddBoxZone("crp_hunting_sell",vector3(963.34, -2115.39, 31.47), 6.8, 1, {
+    name="crp_hunting_sell",
     heading=355,
     --debugPoly=true,
     minZ=31.27,
@@ -183,7 +183,7 @@ exports.qtarget:AddBoxZone("nfire_hunting_sell",vector3(963.34, -2115.39, 31.47)
                         },
                     }, function(cancel)
                         if not cancel then
-                            TriggerServerEvent('nfire_hunting:SellCarcass', Config.carcass[heaviestCarcass])
+                            TriggerServerEvent('crp_hunting:SellCarcass', Config.carcass[heaviestCarcass])
                         end
                     end)
                 end,

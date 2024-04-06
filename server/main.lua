@@ -1,14 +1,8 @@
 lib.locale()
 local antifarm = {}
 
-lib.versionCheck('N-fire/nfire_hunting')
-if not lib.checkDependency('ox_lib', '2.1.0') then error('You don\'t have latest version of ox_lib') end
-if not lib.checkDependency('ox_inventory', '2.7.4') then error('You don\'t have latest version of ox_inventory') end
-if not lib.checkDependency('qtarget', '2.1.0') then error('You don\'t have latest version of qtarget') end
-
-
-RegisterNetEvent('nfire_hunting:harvestCarcass')
-AddEventHandler('nfire_hunting:harvestCarcass',function (entityId, bone)
+RegisterNetEvent('crp_hunting:harvestCarcass')
+AddEventHandler('crp_hunting:harvestCarcass',function (entityId, bone)
     local playerCoords = GetEntityCoords(GetPlayerPed(source))
     local entity = NetworkGetEntityFromNetworkId(entityId)
     local entityCoords = GetEntityCoords(entity)
@@ -47,8 +41,8 @@ function InTable(table, value)
     return false
 end
 
-RegisterNetEvent('nfire_hunting:SellCarcass')
-AddEventHandler('nfire_hunting:SellCarcass',function (item)
+RegisterNetEvent('crp_hunting:SellCarcass')
+AddEventHandler('crp_hunting:SellCarcass',function (item)
     local itemData = exports.ox_inventory:Search(source,'slots', item)[1]
     if itemData.count >= 1 then
         local reward = Config.sellPrice[item].max * Config.gradeMultiplier[itemData.metadata.type]
